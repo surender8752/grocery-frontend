@@ -36,7 +36,9 @@ export const AuthProvider = ({ children }) => {
         } else {
             setLoading(false);
         }
-    }, [token]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [token, API_URL]);
+
 
     const login = async (username, password) => {
         try {
