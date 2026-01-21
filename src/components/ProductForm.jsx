@@ -23,7 +23,7 @@ export default function ProductForm({ editProduct, onSuccess }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+        const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:5000").replace(/\/$/, "");
 
         try {
             if (editProduct) {

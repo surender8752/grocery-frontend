@@ -11,7 +11,7 @@ export default function ProductList({ refresh, onEdit, readOnly = false }) {
     }, [refresh]);
 
     const fetchProducts = async () => {
-        const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+        const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:5000").replace(/\/$/, "");
         try {
             const response = await axios.get(`${API_URL}/products`);
             setProducts(response.data);
