@@ -16,11 +16,13 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem("adminToken"));
     const [loading, setLoading] = useState(true);
 
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
     useEffect(() => {
         if (token) {
             // Verify token and get admin profile
             axios
-                .get("http://localhost:5000/admin/profile", {
+                .get(`${API_URL}/admin/profile`, {
                     headers: { Authorization: `Bearer ${token}` },
                 })
                 .then((response) => {
@@ -38,7 +40,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (username, password) => {
         try {
-            const response = await axios.post("http://localhost:5000/admin/login", {
+            const response = await axios.post(`${API_URL}/admin/login`, {
                 username,
                 password,
             });
@@ -62,7 +64,7 @@ export const AuthProvider = ({ children }) => {
 
     const register = async (username, email, password) => {
         try {
-            const response = await axios.post("http://localhost:5000/admin/register", {
+            const response = await axios.post(`${API_URL}/admin/register`, {
                 username,
                 email,
                 password,

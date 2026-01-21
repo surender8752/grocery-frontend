@@ -31,6 +31,8 @@ function App() {
       return;
     }
 
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
     try {
       const permission = await Notification.requestPermission();
 
@@ -39,7 +41,7 @@ function App() {
           vapidKey: "YOUR_VAPID_KEY", // Replace with your VAPID key
         });
 
-        await axios.post("http://localhost:5000/token", { token });
+        await axios.post(`${API_URL}/token`, { token });
         setNotificationEnabled(true);
         alert("✅ Notifications Enabled!");
       } else {
@@ -50,6 +52,7 @@ function App() {
       alert("❌ Error enabling notifications");
     }
   };
+
 
   return (
     <AuthProvider>

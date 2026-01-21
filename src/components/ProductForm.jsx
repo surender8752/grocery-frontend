@@ -23,15 +23,17 @@ export default function ProductForm({ editProduct, onSuccess }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
         try {
             if (editProduct) {
                 await axios.put(
-                    `http://localhost:5000/product/${editProduct._id}`,
+                    `${API_URL}/product/${editProduct._id}`,
                     formData
                 );
                 alert("✅ Product Updated!");
             } else {
-                await axios.post("http://localhost:5000/product", formData);
+                await axios.post(`${API_URL}/product`, formData);
                 alert("✅ Product Added!");
             }
 

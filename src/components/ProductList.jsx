@@ -11,8 +11,9 @@ export default function ProductList({ refresh, onEdit, readOnly = false }) {
     }, [refresh]);
 
     const fetchProducts = async () => {
+        const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
         try {
-            const response = await axios.get("http://localhost:5000/products");
+            const response = await axios.get(`${API_URL}/products`);
             setProducts(response.data);
             setLoading(false);
         } catch (error) {
@@ -26,8 +27,10 @@ export default function ProductList({ refresh, onEdit, readOnly = false }) {
             return;
         }
 
+        const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
         try {
-            await axios.delete(`http://localhost:5000/product/${id}`);
+            await axios.delete(`${API_URL}/product/${id}`);
             alert("✅ Product Deleted!");
             fetchProducts();
         } catch (error) {
