@@ -14,16 +14,23 @@ function App() {
   const [notificationEnabled, setNotificationEnabled] = useState(false);
 
   useEffect(() => {
-    // Listen for foreground notifications
-    const unsubscribe = onMessage(messaging, (payload) => {
-      console.log("Notification received:", payload);
-      alert(`🔔 ${payload.notification.title}\n${payload.notification.body}`);
-    });
+    // Listen for foreground notifications (only if messaging is available)
+    if (messaging) {
+      const unsubscribe = onMessage(messaging, (payload) => {
+        console.log("Notification received:", payload);
+        alert(`🔔 ${payload.notification.title}\n${payload.notification.body}`);
+      });
 
-    return () => unsubscribe();
+      return () => unsubscribe();
+    }
   }, []);
 
   const requestPermission = async () => {
+    if (!messaging) {
+      alert("⚠️ Firebase not configured. Notifications are disabled.");
+      return;
+    }
+
     try {
       const permission = await Notification.requestPermission();
 
