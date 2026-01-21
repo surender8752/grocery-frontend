@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import Dashboard from "../components/Dashboard";
 import ProductList from "../components/ProductList";
 import "./Home.css";
+
 
 export default function Home({ notificationEnabled, requestPermission }) {
     const navigate = useNavigate();
