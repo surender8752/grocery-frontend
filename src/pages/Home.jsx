@@ -6,7 +6,6 @@ import "./Home.css";
 
 export default function Home({ notificationEnabled, requestPermission }) {
     const navigate = useNavigate();
-    const [refreshKey, setRefreshKey] = useState(0);
 
     return (
         <div className="home-page">
@@ -37,7 +36,7 @@ export default function Home({ notificationEnabled, requestPermission }) {
                 <Dashboard />
 
                 <div className="home-content">
-                    <ProductList refresh={refreshKey} onEdit={() => { }} readOnly={true} />
+                    <ProductList onEdit={() => { }} readOnly={true} />
                 </div>
 
                 <div className="admin-cta">
