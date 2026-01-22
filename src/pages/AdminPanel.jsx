@@ -36,7 +36,7 @@ export default function AdminPanel() {
             <div className="container">
                 <Dashboard onFilter={setFilterStatus} />
 
-                <div className="admin-main-layout" style={{ marginTop: '2rem' }}>
+                <div className="admin-main-layout">
                     <div className="form-column">
                         <ProductForm
                             editProduct={editProduct}
@@ -44,7 +44,7 @@ export default function AdminPanel() {
                         />
                     </div>
 
-                    <div className="list-column" style={{ marginTop: '3rem' }}>
+                    <div className="list-column">
                         <ProductList
                             refresh={refreshKey}
                             onEdit={handleEdit}

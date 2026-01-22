@@ -24,8 +24,9 @@ export default function Navbar() {
                 <Link
                     to="/admin"
                     className="nav-link"
+                    style={{ background: 'rgba(99, 91, 255, 0.1)', color: 'var(--primary-blue)' }}
                 >
-                    Add Item
+                    + Add Item
                 </Link>
             </div>
         </nav>
