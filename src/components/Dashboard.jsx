@@ -9,10 +9,6 @@ export default function Dashboard() {
         fresh: 0,
     });
 
-    useEffect(() => {
-        fetchStats();
-    }, [fetchStats]);
-
     const fetchStats = useCallback(async () => {
         const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:5000").replace(/\/$/, "");
         try {
@@ -52,6 +48,10 @@ export default function Dashboard() {
             console.error("Error fetching stats:", error);
         }
     }, []);
+
+    useEffect(() => {
+        fetchStats();
+    }, [fetchStats]);
 
     return (
         <div className="dashboard">
