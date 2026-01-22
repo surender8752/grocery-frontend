@@ -415,7 +415,7 @@ tr:hover {
 .notification-body p {
   margin: 0.2rem 0 0;
   font-size: 0.95rem;
-  color: var(--text-muted);
+  color: #fff;
 }
 
 .btn-notification {
