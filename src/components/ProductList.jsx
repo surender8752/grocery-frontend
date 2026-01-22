@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import ExpiryAlert from "./ExpiryAlert";
 
 export default function ProductList({ refresh, onEdit, readOnly = false, filterStatus = "all", onClearFilter }) {
     const [products, setProducts] = useState([]);

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import Dashboard from "../components/Dashboard";
 import ProductList from "../components/ProductList";
 import Navbar from "../components/Navbar";
@@ -6,7 +6,7 @@ import "./Home.css";
 
 
 export default function Home({ notificationEnabled, requestPermission }) {
-    const [filterStatus, setFilterStatus] = React.useState("all");
+    const [filterStatus, setFilterStatus] = useState("all");
 
     return (
         <div className="home-page">

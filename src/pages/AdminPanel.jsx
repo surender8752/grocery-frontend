@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Dashboard from "../components/Dashboard";
@@ -10,9 +10,9 @@ import "./AdminPanel.css";
 export default function AdminPanel() {
     const { logout } = useAuth();
     const navigate = useNavigate();
-    const [editProduct, setEditProduct] = React.useState(null);
-    const [refreshKey, setRefreshKey] = React.useState(0);
-    const [filterStatus, setFilterStatus] = React.useState("all");
+    const [editProduct, setEditProduct] = useState(null);
+    const [refreshKey, setRefreshKey] = useState(0);
+    const [filterStatus, setFilterStatus] = useState("all");
 
     const handleProductSuccess = () => {
         setEditProduct(null);
