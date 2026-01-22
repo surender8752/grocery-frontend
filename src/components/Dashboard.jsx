@@ -45,7 +45,7 @@ export default function Dashboard() {
                 fresh,
             });
         } catch (error) {
-            console.error("Error fetching stats:", error);
+            console.error("Error fetching stats:", error.response?.data || error.message);
         }
     }, []);
 

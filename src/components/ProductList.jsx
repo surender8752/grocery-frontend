@@ -24,7 +24,7 @@ export default function ProductList({ refresh, onEdit, readOnly = false }) {
             setProducts(sortedProducts);
             setLoading(false);
         } catch (error) {
-            console.error("Error fetching products:", error);
+            console.error("Error fetching products:", error.response?.data || error.message);
             setLoading(false);
         }
     }, [sortBy]);
