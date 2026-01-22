@@ -34,7 +34,7 @@ export default function AdminPanel() {
             <Navbar />
 
             <div className="container">
-                <Dashboard onFilter={setFilterStatus} />
+                <Dashboard onFilter={setFilterStatus} refresh={refreshKey} />
 
                 <div className="admin-main-layout">
                     <div className="form-column">

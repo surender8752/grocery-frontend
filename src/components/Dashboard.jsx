@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
-export default function Dashboard({ onFilter }) {
+export default function Dashboard({ onFilter, refresh }) {
     const [stats, setStats] = useState({
         total: 0,
         expiringSoon: 0,
@@ -67,7 +67,7 @@ export default function Dashboard({ onFilter }) {
 
     useEffect(() => {
         fetchStats();
-    }, [fetchStats]);
+    }, [refresh, fetchStats]);
 
     return (
         <div className="dashboard">
