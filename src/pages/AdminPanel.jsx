@@ -8,7 +8,7 @@ import Navbar from "../components/Navbar";
 import "./AdminPanel.css";
 
 export default function AdminPanel() {
-    const { admin, logout } = useAuth();
+    const { logout } = useAuth();
     const navigate = useNavigate();
     const [editProduct, setEditProduct] = React.useState(null);
     const [refreshKey, setRefreshKey] = React.useState(0);

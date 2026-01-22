@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Dashboard from "../components/Dashboard";
 import ProductList from "../components/ProductList";
 import Navbar from "../components/Navbar";
@@ -7,8 +6,6 @@ import "./Home.css";
 
 
 export default function Home({ notificationEnabled, requestPermission }) {
-    const navigate = useNavigate();
-
     const [filterStatus, setFilterStatus] = React.useState("all");
 
     return (
