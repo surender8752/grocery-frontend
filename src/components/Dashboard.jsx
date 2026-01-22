@@ -7,6 +7,7 @@ export default function Dashboard() {
         expiringSoon: 0,
         expired: 0,
         fresh: 0,
+        totalValue: 0,
     });
 
     const fetchStats = useCallback(async () => {
@@ -38,11 +39,18 @@ export default function Dashboard() {
                 return daysLeft > p.notifyBeforeDays;
             }).length;
 
+            const totalValue = products.reduce((sum, p) => {
+                const price = Number(p.price) || 0;
+                const qty = Number(p.quantity) || 0;
+                return sum + (price * qty);
+            }, 0);
+
             setStats({
                 total: products.length,
                 expiringSoon,
                 expired,
                 fresh,
+                totalValue,
             });
         } catch (error) {
             console.error("Error fetching stats:", error.response?.data || error.message);
@@ -87,6 +95,14 @@ export default function Dashboard() {
                     <div className="stat-info">
                         <h3>{stats.expired}</h3>
                         <p>Expired</p>
+                    </div>
+                </div>
+
+                <div className="stat-card value">
+                    <div className="stat-icon">💰</div>
+                    <div className="stat-info">
+                        <h3>₹{stats.totalValue.toLocaleString("en-IN")}</h3>
+                        <p>Total Value</p>
                     </div>
                 </div>
             </div>
