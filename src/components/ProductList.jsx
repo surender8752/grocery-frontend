@@ -79,10 +79,10 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
     }
 
     return (
-        <div className="product-list">
+        <div className="inventory-section">
             <div className="list-header">
                 <div className="header-title-group">
-                    <h3>📋 {filterStatus !== "all" ? `${filterStatus.replace("-", " ")} items` : "Your Grocery Items"} ({products.length})</h3>
+                    <h2>📋 {filterStatus !== "all" ? `${filterStatus.replace("-", " ")} items` : "Recent Items"} ({products.length})</h2>
                     {filterStatus !== "all" && (
                         <button className="btn-clear-filter" onClick={onClearFilter}>
                             ✕ Clear Filter
@@ -99,74 +99,75 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
                 </div>
             </div>
 
-            <div className="products-grid">
-                {products.map((product) => {
-                    const { status, color } = getExpiryStatus(
-                        product.expiryDate,
-                        product.notifyBeforeDays
-                    );
-                    const daysLeft = getDaysLeft(product.expiryDate);
+            <div className="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            {!readOnly && <th>Actions</th>}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {products.map((product) => {
+                            const { status: expiryStatus } = getExpiryStatus(
+                                product.expiryDate,
+                                product.notifyBeforeDays
+                            );
+                            const daysLeft = getDaysLeft(product.expiryDate);
+                            const isLowStock = Number(product.quantity) < 5;
+                            const badgeClass = daysLeft < 0 ? "expired" : (isLowStock ? "low-stock" : expiryStatus);
+                            const statusLabel = daysLeft < 0 ? "Expired" : (isLowStock ? "Low Stock" : "In Stock");
 
-                    return (
-                        <div
-                            key={product._id}
-                            className="product-card"
-                            style={{ borderLeft: `4px solid ${color}` }}
-                        >
-                            <div className="product-header">
-                                <h4>{product.name}</h4>
-                                <div className="header-badges">
-                                    <span className="price-badge">₹{product.price}</span>
-                                    <span className="quantity-badge">Qty: {product.quantity}</span>
-                                </div>
-                            </div>
-
-                            <div className="product-details">
-                                <p>
-                                    <strong>Expiry:</strong>{" "}
-                                    {new Date(product.expiryDate).toLocaleDateString("en-IN")}
-                                </p>
-                                <p>
-                                    <strong>Status:</strong>{" "}
-                                    <span style={{ color }}>
-                                        {daysLeft < 0
-                                            ? "❌ Expired"
-                                            : daysLeft === 0
-                                                ? "⚠️ Expires Today"
-                                                : daysLeft <= product.notifyBeforeDays
-                                                    ? `⚠️ ${daysLeft} days left`
-                                                    : `✅ ${daysLeft} days left`}
-                                    </span>
-                                </p>
-                                <p>
-                                    <strong>Notify Before:</strong> {product.notifyBeforeDays}{" "}
-                                    days
-                                </p>
-                            </div>
-
-                            {status === "expiring-soon" && (
-                                <ExpiryAlert product={product} />
-                            )}
-
-                            {!readOnly && (
-                                <div className="product-actions">
-                                    <button
-                                        className="btn-edit"
-                                        onClick={() => onEdit(product)}
-                                    >
-                                        ✏️ Edit
-                                    </button>
-                                    <button
-                                        className="btn-delete"
-                                        onClick={() => deleteProduct(product._id)}
-                                    >
-                                        🗑️ Delete
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    );
-                })}
+                            return (
+                                <tr key={product._id}>
+                                    <td>
+                                        <div className="item-name">{product.name}</div>
+                                        <div style={{ fontSize: '0.8rem', color: '#718096' }}>
+                                            Exp: {new Date(product.expiryDate).toLocaleDateString("en-IN")}
+                                        </div>
+                                    </td>
+                                    <td className="category-tag">{product.category || "General"}</td>
+                                    <td>{product.quantity}</td>
+                                    <td>₹{product.price}</td>
+                                    <td>
+                                        <span className={`status-badge ${badgeClass}`}>
+                                            {statusLabel}
+                                        </span>
+                                    </td>
+                                    {!readOnly && (
+                                        <td>
+                                            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                                <button
+                                                    className="btn-ghost"
+                                                    onClick={() => onEdit(product)}
+                                                    style={{ border: '1px solid #4a5568', color: '#fff' }}
+                                                >
+                                                    ✏️
+                                                </button>
+                                                <button
+                                                    className="btn-ghost"
+                                                    onClick={() => deleteProduct(product._id)}
+                                                    style={{ border: '1px solid #f56565', color: '#f56565' }}
+                                                >
+                                                    🗑️
+                                                </button>
+                                            </div>
+                                        </td>
+                                    )}
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+                {products.length === 0 && (
+                    <div className="empty-state" style={{ padding: '3rem', textAlign: 'center' }}>
+                        <p>No items found matching your criteria.</p>
+                    </div>
+                )}
             </div>
         </div>
     );

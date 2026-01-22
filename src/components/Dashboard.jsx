@@ -9,6 +9,7 @@ export default function Dashboard({ onFilter }) {
         fresh: 0,
         totalValue: 0,
         totalStock: 0,
+        lowStock: 0,
     });
 
     const fetchStats = useCallback(async () => {
@@ -48,6 +49,8 @@ export default function Dashboard({ onFilter }) {
 
             const totalStock = products.reduce((sum, p) => sum + (Number(p.quantity) || 0), 0);
 
+            const lowStock = products.filter(p => (Number(p.quantity) || 0) < 5).length;
+
             setStats({
                 total: products.length,
                 expiringSoon,
@@ -55,6 +58,7 @@ export default function Dashboard({ onFilter }) {
                 fresh,
                 totalValue,
                 totalStock,
+                lowStock,
             });
         } catch (error) {
             console.error("Error fetching stats:", error.response?.data || error.message);
@@ -67,66 +71,59 @@ export default function Dashboard({ onFilter }) {
 
     return (
         <div className="dashboard">
-            <h2>📊 Dashboard</h2>
+            <div className="section-header">
+                <h1>Dashboard</h1>
+                <p>Overview of SK Inventory Manager system</p>
+            </div>
 
             <div className="stats-grid">
-                <div
-                    className="stat-card total clickable"
-                    onClick={() => onFilter && onFilter("all")}
-                >
-                    <div className="stat-icon">📦</div>
+                <div className="stat-card clickable" onClick={() => onFilter && onFilter("all")}>
+                    <div className="stat-icon-wrapper purple">📦</div>
                     <div className="stat-info">
-                        <h3>{stats.total}</h3>
-                        <p>Total Items</p>
+                        <span className="stat-value">{stats.total}</span>
+                        <span className="stat-label">Total Items</span>
                     </div>
                 </div>
 
-                <div
-                    className="stat-card fresh clickable"
-                    onClick={() => onFilter && onFilter("fresh")}
-                >
-                    <div className="stat-icon">✅</div>
+                <div className="stat-card">
+                    <div className="stat-icon-wrapper pink">💰</div>
                     <div className="stat-info">
-                        <h3>{stats.fresh}</h3>
-                        <p>Fresh Items</p>
+                        <span className="stat-value">₹{stats.totalValue.toLocaleString("en-IN")}</span>
+                        <span className="stat-label">Total Value</span>
                     </div>
                 </div>
 
-                <div
-                    className="stat-card expiring clickable"
-                    onClick={() => onFilter && onFilter("expiring-soon")}
-                >
-                    <div className="stat-icon">⚠️</div>
+                <div className="stat-card clickable" onClick={() => onFilter && onFilter("expiring-soon")}>
+                    <div className="stat-icon-wrapper yellow">⚠️</div>
                     <div className="stat-info">
-                        <h3>{stats.expiringSoon}</h3>
-                        <p>Expiring Soon</p>
+                        <span className="stat-value">{stats.lowStock}</span>
+                        <span className="stat-label">Low Stock Alerts</span>
                     </div>
                 </div>
 
-                <div
-                    className="stat-card expired clickable"
-                    onClick={() => onFilter && onFilter("expired")}
-                >
-                    <div className="stat-icon">❌</div>
+                <div className="stat-card">
+                    <div className="stat-icon-wrapper blue">🛒</div>
                     <div className="stat-info">
-                        <h3>{stats.expired}</h3>
-                        <p>Expired</p>
+                        <span className="stat-value">{stats.totalStock}</span>
+                        <span className="stat-label">Total Quantity</span>
+                    </div>
+                </div>
+            </div>
+
+            <div className="stats-grid">
+                <div className="stat-card clickable" onClick={() => onFilter && onFilter("fresh")}>
+                    <div className="stat-icon-wrapper green">✅</div>
+                    <div className="stat-info">
+                        <span className="stat-value">{stats.fresh}</span>
+                        <span className="stat-label">Fresh Items</span>
                     </div>
                 </div>
 
-                <div className="stat-card value">
-                    <div className="stat-icon">💰</div>
+                <div className="stat-card clickable" onClick={() => onFilter && onFilter("expired")}>
+                    <div className="stat-icon-wrapper red">❌</div>
                     <div className="stat-info">
-                        <h3>₹{stats.totalValue.toLocaleString("en-IN")}</h3>
-                        <p>Total Value</p>
-                    </div>
-                </div>
-
-                <div className="stat-card stock">
-                    <div className="stat-icon">🛒</div>
-                    <div className="stat-info">
-                        <h3>{stats.totalStock}</h3>
-                        <p>Total In Stock</p>
+                        <span className="stat-value">{stats.expired}</span>
+                        <span className="stat-label">Expired Items</span>
                     </div>
                 </div>
             </div>

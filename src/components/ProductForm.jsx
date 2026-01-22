@@ -4,6 +4,7 @@ import axios from "axios";
 export default function ProductForm({ editProduct, onSuccess }) {
     const [formData, setFormData] = useState({
         name: "",
+        category: "",
         quantity: "",
         price: "",
         expiryDate: "",
@@ -14,6 +15,7 @@ export default function ProductForm({ editProduct, onSuccess }) {
         if (editProduct) {
             setFormData({
                 name: editProduct.name,
+                category: editProduct.category || "",
                 quantity: editProduct.quantity,
                 price: editProduct.price || "",
                 expiryDate: editProduct.expiryDate?.split("T")[0] || "",
@@ -41,6 +43,7 @@ export default function ProductForm({ editProduct, onSuccess }) {
 
             setFormData({
                 name: "",
+                category: "",
                 quantity: "",
                 price: "",
                 expiryDate: "",
@@ -54,14 +57,14 @@ export default function ProductForm({ editProduct, onSuccess }) {
     };
 
     return (
-        <div className="product-form">
-            <h3>{editProduct ? "Edit Product" : "Add New Product"}</h3>
+        <div className="form-container">
+            <h3>{editProduct ? "Edit Product" : "Add New Item"}</h3>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Product Name *</label>
                     <input
                         type="text"
-                        placeholder="e.g., Milk, Bread, Eggs"
+                        placeholder="e.g., Bread, Milk"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         required
@@ -69,31 +72,37 @@ export default function ProductForm({ editProduct, onSuccess }) {
                 </div>
 
                 <div className="form-group">
-                    <label>Quantity *</label>
+                    <label>Category</label>
                     <input
-                        type="number"
-                        placeholder="e.g., 2"
-                        min="1"
-                        value={formData.quantity}
-                        onChange={(e) =>
-                            setFormData({ ...formData, quantity: e.target.value })
-                        }
-                        required
+                        type="text"
+                        placeholder="e.g., Grocery, Dairy, Bakery"
+                        value={formData.category}
+                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                     />
                 </div>
 
-                <div className="form-group">
-                    <label>Price (₹) *</label>
-                    <input
-                        type="number"
-                        placeholder="e.g., 50"
-                        min="0"
-                        value={formData.price}
-                        onChange={(e) =>
-                            setFormData({ ...formData, price: e.target.value })
-                        }
-                        required
-                    />
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <div className="form-group">
+                        <label>Quantity *</label>
+                        <input
+                            type="number"
+                            min="1"
+                            value={formData.quantity}
+                            onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Price (₹) *</label>
+                        <input
+                            type="number"
+                            min="0"
+                            value={formData.price}
+                            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                            required
+                        />
+                    </div>
                 </div>
 
                 <div className="form-group">
@@ -101,9 +110,7 @@ export default function ProductForm({ editProduct, onSuccess }) {
                     <input
                         type="date"
                         value={formData.expiryDate}
-                        onChange={(e) =>
-                            setFormData({ ...formData, expiryDate: e.target.value })
-                        }
+                        onChange={(e) => setFormData({ ...formData, expiryDate: e.target.value })}
                         required
                     />
                 </div>
@@ -112,20 +119,29 @@ export default function ProductForm({ editProduct, onSuccess }) {
                     <label>Notify Before (Days) *</label>
                     <input
                         type="number"
-                        placeholder="e.g., 3"
                         min="1"
                         max="30"
                         value={formData.notifyBeforeDays}
-                        onChange={(e) =>
-                            setFormData({ ...formData, notifyBeforeDays: e.target.value })
-                        }
+                        onChange={(e) => setFormData({ ...formData, notifyBeforeDays: e.target.value })}
                         required
                     />
                 </div>
 
-                <button type="submit" className="btn-primary">
-                    {editProduct ? "Update Product" : "Add Product"}
-                </button>
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                    <button type="submit" className="btn-primary" style={{ flex: 2 }}>
+                        {editProduct ? "Update Product" : "Add to Inventory"}
+                    </button>
+                    {editProduct && (
+                        <button
+                            type="button"
+                            className="btn-secondary"
+                            onClick={() => onSuccess()}
+                            style={{ flex: 1 }}
+                        >
+                            Cancel
+                        </button>
+                    )}
+                </div>
             </form>
         </div>
     );

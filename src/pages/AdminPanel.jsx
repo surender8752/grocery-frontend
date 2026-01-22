@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Dashboard from "../components/Dashboard";
 import ProductForm from "../components/ProductForm";
 import ProductList from "../components/ProductList";
+import Navbar from "../components/Navbar";
 import "./AdminPanel.css";
 
 export default function AdminPanel() {
@@ -29,48 +30,21 @@ export default function AdminPanel() {
     };
 
     return (
-        <div className="admin-panel">
-            <header className="admin-header">
-                <div className="admin-header-content">
-                    <div>
-                        <h1>🛒 Admin Panel</h1>
-                        <p>Grocery Inventory Management</p>
-                    </div>
-                    <div className="admin-info">
-                        <div className="admin-badge">
-                            <span className="admin-icon">👤</span>
-                            <div>
-                                <p className="admin-name">{admin?.username}</p>
-                                <p className="admin-role">{admin?.role}</p>
-                            </div>
-                        </div>
-                        <button onClick={handleLogout} className="btn-logout">
-                            🚪 Logout
-                        </button>
-                    </div>
-                </div>
-            </header>
+        <div className="admin-page">
+            <Navbar />
 
-            <div className="admin-container">
+            <div className="container">
                 <Dashboard onFilter={setFilterStatus} />
 
-                <div className="admin-content">
-                    <div className="form-section">
+                <div className="admin-main-layout" style={{ marginTop: '2rem' }}>
+                    <div className="form-column">
                         <ProductForm
                             editProduct={editProduct}
                             onSuccess={handleProductSuccess}
                         />
-                        {editProduct && (
-                            <button
-                                className="btn-cancel"
-                                onClick={() => setEditProduct(null)}
-                            >
-                                Cancel Edit
-                            </button>
-                        )}
                     </div>
 
-                    <div className="list-section">
+                    <div className="list-column" style={{ marginTop: '3rem' }}>
                         <ProductList
                             refresh={refreshKey}
                             onEdit={handleEdit}
@@ -78,6 +52,12 @@ export default function AdminPanel() {
                             onClearFilter={() => setFilterStatus("all")}
                         />
                     </div>
+                </div>
+
+                <div style={{ textAlign: 'center', marginTop: '4rem', padding: '2rem' }}>
+                    <button onClick={handleLogout} className="btn-secondary">
+                        🚪 Logout from Session
+                    </button>
                 </div>
             </div>
         </div>
