@@ -8,6 +8,7 @@ export default function Dashboard() {
         expired: 0,
         fresh: 0,
         totalValue: 0,
+        totalStock: 0,
     });
 
     const fetchStats = useCallback(async () => {
@@ -45,12 +46,15 @@ export default function Dashboard() {
                 return sum + (price * qty);
             }, 0);
 
+            const totalStock = products.reduce((sum, p) => sum + (Number(p.quantity) || 0), 0);
+
             setStats({
                 total: products.length,
                 expiringSoon,
                 expired,
                 fresh,
                 totalValue,
+                totalStock,
             });
         } catch (error) {
             console.error("Error fetching stats:", error.response?.data || error.message);
@@ -103,6 +107,14 @@ export default function Dashboard() {
                     <div className="stat-info">
                         <h3>₹{stats.totalValue.toLocaleString("en-IN")}</h3>
                         <p>Total Value</p>
+                    </div>
+                </div>
+
+                <div className="stat-card stock">
+                    <div className="stat-icon">🛒</div>
+                    <div className="stat-info">
+                        <h3>{stats.totalStock}</h3>
+                        <p>Total In Stock</p>
                     </div>
                 </div>
             </div>
