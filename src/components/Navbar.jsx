@@ -6,7 +6,7 @@ export default function Navbar() {
     return (
         <nav className="navbar">
             <Link to="/" className="nav-logo">
-                📦 SK Inventory Manager
+                📦 Mahajan Grocery Store
             </Link>
             <div className="nav-links">
                 <Link

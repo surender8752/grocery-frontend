@@ -73,7 +73,7 @@ export default function Dashboard({ onFilter }) {
         <div className="dashboard">
             <div className="section-header">
                 <h1>Dashboard</h1>
-                <p>Overview of SK Inventory Manager system</p>
+                <p>Overview of Mahajan Grocery Store system</p>
             </div>
 
             <div className="stats-grid">
