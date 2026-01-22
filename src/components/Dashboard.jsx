@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 export default function Dashboard() {
@@ -11,9 +11,9 @@ export default function Dashboard() {
 
     useEffect(() => {
         fetchStats();
-    }, []);
+    }, [fetchStats]);
 
-    const fetchStats = async () => {
+    const fetchStats = useCallback(async () => {
         const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:5000").replace(/\/$/, "");
         try {
             const response = await axios.get(`${API_URL}/products`);
@@ -51,7 +51,7 @@ export default function Dashboard() {
         } catch (error) {
             console.error("Error fetching stats:", error);
         }
-    };
+    }, []);
 
     return (
         <div className="dashboard">

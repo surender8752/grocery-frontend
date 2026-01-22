@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import ExpiryAlert from "./ExpiryAlert";
 
@@ -7,11 +7,7 @@ export default function ProductList({ refresh, onEdit, readOnly = false }) {
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState("expiryDate"); // default sort
 
-    useEffect(() => {
-        fetchProducts();
-    }, [refresh]);
-
-    const fetchProducts = async () => {
+    const fetchProducts = useCallback(async () => {
         const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:5000").replace(/\/$/, "");
         try {
             const response = await axios.get(`${API_URL}/products`);
@@ -22,7 +18,6 @@ export default function ProductList({ refresh, onEdit, readOnly = false }) {
             } else if (sortBy === "priceLowToHigh") {
                 sortedProducts.sort((a, b) => a.price - b.price);
             } else {
-                // Default: Expiry Date (Already sorted by backend or we can sort here)
                 sortedProducts.sort((a, b) => new Date(a.expiryDate) - new Date(b.expiryDate));
             }
 
@@ -32,11 +27,11 @@ export default function ProductList({ refresh, onEdit, readOnly = false }) {
             console.error("Error fetching products:", error);
             setLoading(false);
         }
-    };
+    }, [sortBy]);
 
     useEffect(() => {
         fetchProducts();
-    }, [refresh, sortBy]);
+    }, [refresh, fetchProducts]);
 
     const deleteProduct = async (id) => {
         if (!window.confirm("Are you sure you want to delete this product?")) {
