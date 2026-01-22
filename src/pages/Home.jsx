@@ -8,6 +8,8 @@ import "./Home.css";
 export default function Home({ notificationEnabled, requestPermission }) {
     const navigate = useNavigate();
 
+    const [filterStatus, setFilterStatus] = React.useState("all");
+
     return (
         <div className="home-page">
             <header className="home-header">
@@ -34,10 +36,15 @@ export default function Home({ notificationEnabled, requestPermission }) {
                     </div>
                 )}
 
-                <Dashboard />
+                <Dashboard onFilter={setFilterStatus} />
 
                 <div className="home-content">
-                    <ProductList onEdit={() => { }} readOnly={true} />
+                    <ProductList
+                        onEdit={() => { }}
+                        readOnly={true}
+                        filterStatus={filterStatus}
+                        onClearFilter={() => setFilterStatus("all")}
+                    />
                 </div>
 
                 <div className="admin-cta">

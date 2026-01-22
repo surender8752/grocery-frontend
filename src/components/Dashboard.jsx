@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
-export default function Dashboard() {
+export default function Dashboard({ onFilter }) {
     const [stats, setStats] = useState({
         total: 0,
         expiringSoon: 0,
@@ -70,7 +70,10 @@ export default function Dashboard() {
             <h2>📊 Dashboard</h2>
 
             <div className="stats-grid">
-                <div className="stat-card total">
+                <div
+                    className="stat-card total clickable"
+                    onClick={() => onFilter && onFilter("all")}
+                >
                     <div className="stat-icon">📦</div>
                     <div className="stat-info">
                         <h3>{stats.total}</h3>
@@ -78,7 +81,10 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                <div className="stat-card fresh">
+                <div
+                    className="stat-card fresh clickable"
+                    onClick={() => onFilter && onFilter("fresh")}
+                >
                     <div className="stat-icon">✅</div>
                     <div className="stat-info">
                         <h3>{stats.fresh}</h3>
@@ -86,7 +92,10 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                <div className="stat-card expiring">
+                <div
+                    className="stat-card expiring clickable"
+                    onClick={() => onFilter && onFilter("expiring-soon")}
+                >
                     <div className="stat-icon">⚠️</div>
                     <div className="stat-info">
                         <h3>{stats.expiringSoon}</h3>
@@ -94,7 +103,10 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                <div className="stat-card expired">
+                <div
+                    className="stat-card expired clickable"
+                    onClick={() => onFilter && onFilter("expired")}
+                >
                     <div className="stat-icon">❌</div>
                     <div className="stat-info">
                         <h3>{stats.expired}</h3>

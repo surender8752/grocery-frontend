@@ -2,32 +2,57 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import ExpiryAlert from "./ExpiryAlert";
 
-export default function ProductList({ refresh, onEdit, readOnly = false }) {
+export default function ProductList({ refresh, onEdit, readOnly = false, filterStatus = "all", onClearFilter }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState("expiryDate"); // default sort
+
+    const getDaysLeft = useCallback((expiryDate) => {
+        const today = new Date();
+        const expiry = new Date(expiryDate);
+        const diffTime = expiry - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+    }, []);
+
+    const getExpiryStatus = useCallback((expiryDate, notifyBeforeDays) => {
+        const daysLeft = getDaysLeft(expiryDate);
+
+        if (daysLeft < 0) return { status: "expired", color: "#ff4444" };
+        if (daysLeft <= notifyBeforeDays)
+            return { status: "expiring-soon", color: "#ff9800" };
+        return { status: "fresh", color: "#4caf50" };
+    }, [getDaysLeft]);
 
     const fetchProducts = useCallback(async () => {
         const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:5000").replace(/\/$/, "");
         try {
             const response = await axios.get(`${API_URL}/products`);
-            let sortedProducts = [...response.data];
+            let processedProducts = [...response.data];
 
-            if (sortBy === "priceHighToLow") {
-                sortedProducts.sort((a, b) => b.price - a.price);
-            } else if (sortBy === "priceLowToHigh") {
-                sortedProducts.sort((a, b) => a.price - b.price);
-            } else {
-                sortedProducts.sort((a, b) => new Date(a.expiryDate) - new Date(b.expiryDate));
+            // 1. Filtering
+            if (filterStatus !== "all") {
+                processedProducts = processedProducts.filter(p =>
+                    getExpiryStatus(p.expiryDate, p.notifyBeforeDays).status === filterStatus
+                );
             }
 
-            setProducts(sortedProducts);
+            // 2. Sorting
+            if (sortBy === "priceHighToLow") {
+                processedProducts.sort((a, b) => b.price - a.price);
+            } else if (sortBy === "priceLowToHigh") {
+                processedProducts.sort((a, b) => a.price - b.price);
+            } else {
+                processedProducts.sort((a, b) => new Date(a.expiryDate) - new Date(b.expiryDate));
+            }
+
+            setProducts(processedProducts);
             setLoading(false);
         } catch (error) {
             console.error("Error fetching products:", error.response?.data || error.message);
             setLoading(false);
         }
-    }, [sortBy]);
+    }, [sortBy, filterStatus, getExpiryStatus]);
 
     useEffect(() => {
         fetchProducts();
@@ -38,7 +63,7 @@ export default function ProductList({ refresh, onEdit, readOnly = false }) {
             return;
         }
 
-        const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+        const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:5000").replace(/\/$/, "");
 
         try {
             await axios.delete(`${API_URL}/product/${id}`);
@@ -49,40 +74,21 @@ export default function ProductList({ refresh, onEdit, readOnly = false }) {
         }
     };
 
-    const getDaysLeft = (expiryDate) => {
-        const today = new Date();
-        const expiry = new Date(expiryDate);
-        const diffTime = expiry - today;
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays;
-    };
-
-    const getExpiryStatus = (expiryDate, notifyBeforeDays) => {
-        const daysLeft = getDaysLeft(expiryDate);
-
-        if (daysLeft < 0) return { status: "expired", color: "#ff4444" };
-        if (daysLeft <= notifyBeforeDays)
-            return { status: "expiring-soon", color: "#ff9800" };
-        return { status: "fresh", color: "#4caf50" };
-    };
-
     if (loading) {
         return <div className="loading">Loading products...</div>;
-    }
-
-    if (products.length === 0) {
-        return (
-            <div className="empty-state">
-                <h3>📦 No Products Yet</h3>
-                <p>Add your first grocery item to get started!</p>
-            </div>
-        );
     }
 
     return (
         <div className="product-list">
             <div className="list-header">
-                <h3>📋 Your Grocery Items ({products.length})</h3>
+                <div className="header-title-group">
+                    <h3>📋 {filterStatus !== "all" ? `${filterStatus.replace("-", " ")} items` : "Your Grocery Items"} ({products.length})</h3>
+                    {filterStatus !== "all" && (
+                        <button className="btn-clear-filter" onClick={onClearFilter}>
+                            ✕ Clear Filter
+                        </button>
+                    )}
+                </div>
                 <div className="sort-controls">
                     <label>Sort by: </label>
                     <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>

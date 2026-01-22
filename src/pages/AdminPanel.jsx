@@ -11,6 +11,7 @@ export default function AdminPanel() {
     const navigate = useNavigate();
     const [editProduct, setEditProduct] = React.useState(null);
     const [refreshKey, setRefreshKey] = React.useState(0);
+    const [filterStatus, setFilterStatus] = React.useState("all");
 
     const handleProductSuccess = () => {
         setEditProduct(null);
@@ -51,7 +52,7 @@ export default function AdminPanel() {
             </header>
 
             <div className="admin-container">
-                <Dashboard />
+                <Dashboard onFilter={setFilterStatus} />
 
                 <div className="admin-content">
                     <div className="form-section">
@@ -70,7 +71,12 @@ export default function AdminPanel() {
                     </div>
 
                     <div className="list-section">
-                        <ProductList refresh={refreshKey} onEdit={handleEdit} />
+                        <ProductList
+                            refresh={refreshKey}
+                            onEdit={handleEdit}
+                            filterStatus={filterStatus}
+                            onClearFilter={() => setFilterStatus("all")}
+                        />
                     </div>
                 </div>
             </div>
