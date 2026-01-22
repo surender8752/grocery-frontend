@@ -5,6 +5,7 @@ export default function ProductForm({ editProduct, onSuccess }) {
     const [formData, setFormData] = useState({
         name: "",
         quantity: "",
+        price: "",
         expiryDate: "",
         notifyBeforeDays: 3,
     });
@@ -14,6 +15,7 @@ export default function ProductForm({ editProduct, onSuccess }) {
             setFormData({
                 name: editProduct.name,
                 quantity: editProduct.quantity,
+                price: editProduct.price || "",
                 expiryDate: editProduct.expiryDate?.split("T")[0] || "",
                 notifyBeforeDays: editProduct.notifyBeforeDays,
             });
@@ -40,6 +42,7 @@ export default function ProductForm({ editProduct, onSuccess }) {
             setFormData({
                 name: "",
                 quantity: "",
+                price: "",
                 expiryDate: "",
                 notifyBeforeDays: 3,
             });
@@ -74,6 +77,20 @@ export default function ProductForm({ editProduct, onSuccess }) {
                         value={formData.quantity}
                         onChange={(e) =>
                             setFormData({ ...formData, quantity: e.target.value })
+                        }
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Price (₹) *</label>
+                    <input
+                        type="number"
+                        placeholder="e.g., 50"
+                        min="0"
+                        value={formData.price}
+                        onChange={(e) =>
+                            setFormData({ ...formData, price: e.target.value })
                         }
                         required
                     />

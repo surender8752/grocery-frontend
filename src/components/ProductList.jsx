@@ -5,6 +5,7 @@ import ExpiryAlert from "./ExpiryAlert";
 export default function ProductList({ refresh, onEdit, readOnly = false }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [sortBy, setSortBy] = useState("expiryDate"); // default sort
 
     useEffect(() => {
         fetchProducts();
@@ -14,13 +15,28 @@ export default function ProductList({ refresh, onEdit, readOnly = false }) {
         const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:5000").replace(/\/$/, "");
         try {
             const response = await axios.get(`${API_URL}/products`);
-            setProducts(response.data);
+            let sortedProducts = [...response.data];
+
+            if (sortBy === "priceHighToLow") {
+                sortedProducts.sort((a, b) => b.price - a.price);
+            } else if (sortBy === "priceLowToHigh") {
+                sortedProducts.sort((a, b) => a.price - b.price);
+            } else {
+                // Default: Expiry Date (Already sorted by backend or we can sort here)
+                sortedProducts.sort((a, b) => new Date(a.expiryDate) - new Date(b.expiryDate));
+            }
+
+            setProducts(sortedProducts);
             setLoading(false);
         } catch (error) {
             console.error("Error fetching products:", error);
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        fetchProducts();
+    }, [refresh, sortBy]);
 
     const deleteProduct = async (id) => {
         if (!window.confirm("Are you sure you want to delete this product?")) {
@@ -70,7 +86,17 @@ export default function ProductList({ refresh, onEdit, readOnly = false }) {
 
     return (
         <div className="product-list">
-            <h3>📋 Your Grocery Items ({products.length})</h3>
+            <div className="list-header">
+                <h3>📋 Your Grocery Items ({products.length})</h3>
+                <div className="sort-controls">
+                    <label>Sort by: </label>
+                    <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                        <option value="expiryDate">Expiry Date</option>
+                        <option value="priceHighToLow">Price: High to Low</option>
+                        <option value="priceLowToHigh">Price: Low to High</option>
+                    </select>
+                </div>
+            </div>
 
             <div className="products-grid">
                 {products.map((product) => {
@@ -88,7 +114,10 @@ export default function ProductList({ refresh, onEdit, readOnly = false }) {
                         >
                             <div className="product-header">
                                 <h4>{product.name}</h4>
-                                <span className="quantity-badge">Qty: {product.quantity}</span>
+                                <div className="header-badges">
+                                    <span className="price-badge">₹{product.price}</span>
+                                    <span className="quantity-badge">Qty: {product.quantity}</span>
+                                </div>
                             </div>
 
                             <div className="product-details">
