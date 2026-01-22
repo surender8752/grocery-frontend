@@ -17,7 +17,7 @@ function App() {
     // Listen for foreground notifications (only if messaging is available)
     if (messaging) {
       const unsubscribe = onMessage(messaging, (payload) => {
-        console.log("Notification received:", payload);
+        // console.log("Notification received:", payload);
         alert(`🔔 ${payload.notification.title}\n${payload.notification.body}`);
       });
 
