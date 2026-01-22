@@ -14,12 +14,14 @@ export default function Home({ notificationEnabled, requestPermission }) {
 
             <div className="container">
                 {!notificationEnabled && (
-                    <div className="notification-banner">
-                        <p>
-                            🔔 Enable notifications to receive expiry alerts on your mobile
-                        </p>
+                    <div className="notification-card">
+                        <div className="notification-icon-box">🔔</div>
+                        <div className="notification-body">
+                            <h4>Stay Updated!</h4>
+                            <p>Enable notifications to receive timely expiry alerts on your mobile device.</p>
+                        </div>
                         <button onClick={requestPermission} className="btn-notification">
-                            Enable Notifications
+                            Enable Now
                         </button>
                     </div>
                 )}
