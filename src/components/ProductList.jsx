@@ -88,6 +88,18 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
                 processedProducts.sort((a, b) => b.price - a.price);
             } else if (sortBy === "priceLowToHigh") {
                 processedProducts.sort((a, b) => a.price - b.price);
+            } else if (sortBy === "category") {
+                processedProducts.sort((a, b) => {
+                    const categoryA = (a.category || "").toLowerCase();
+                    const categoryB = (b.category || "").toLowerCase();
+                    return categoryA.localeCompare(categoryB);
+                });
+            } else if (sortBy === "subcategory") {
+                processedProducts.sort((a, b) => {
+                    const subcategoryA = (a.subcategory || "").toLowerCase();
+                    const subcategoryB = (b.subcategory || "").toLowerCase();
+                    return subcategoryA.localeCompare(subcategoryB);
+                });
             } else {
                 processedProducts.sort((a, b) => new Date(a.expiryDate) - new Date(b.expiryDate));
             }
@@ -295,6 +307,8 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
                     <label>Sort by: </label>
                     <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
                         <option value="expiryDate">Expiry Date</option>
+                        <option value="category">Category</option>
+                        <option value="subcategory">Subcategory</option>
                         <option value="priceHighToLow">Price: High to Low</option>
                         <option value="priceLowToHigh">Price: Low to High</option>
                     </select>
