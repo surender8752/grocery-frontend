@@ -7,6 +7,7 @@ export default function ProductForm({ editProduct, onSuccess }) {
         category: "",
         subcategory: "",
         quantity: "",
+        weight: "",
         price: "",
         expiryDate: "",
         notifyBeforeDays: 3,
@@ -19,6 +20,7 @@ export default function ProductForm({ editProduct, onSuccess }) {
                 category: editProduct.category || "",
                 subcategory: editProduct.subcategory || "",
                 quantity: editProduct.quantity,
+                weight: editProduct.weight || "",
                 price: editProduct.price || "",
                 expiryDate: editProduct.expiryDate?.split("T")[0] || "",
                 notifyBeforeDays: editProduct.notifyBeforeDays,
@@ -48,6 +50,7 @@ export default function ProductForm({ editProduct, onSuccess }) {
                 category: "",
                 subcategory: "",
                 quantity: "",
+                weight: "",
                 price: "",
                 expiryDate: "",
                 notifyBeforeDays: 3,
@@ -108,6 +111,17 @@ export default function ProductForm({ editProduct, onSuccess }) {
                         placeholder="e.g., Organic, Fresh, Frozen"
                         value={formData.subcategory}
                         onChange={(e) => setFormData({ ...formData, subcategory: e.target.value })}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Weight (grams)</label>
+                    <input
+                        type="number"
+                        min="0"
+                        placeholder="e.g., 500, 1000"
+                        value={formData.weight}
+                        onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
                     />
                 </div>
 

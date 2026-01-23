@@ -88,6 +88,10 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
                 processedProducts.sort((a, b) => b.price - a.price);
             } else if (sortBy === "priceLowToHigh") {
                 processedProducts.sort((a, b) => a.price - b.price);
+            } else if (sortBy === "weightHighToLow") {
+                processedProducts.sort((a, b) => (b.weight || 0) - (a.weight || 0));
+            } else if (sortBy === "weightLowToHigh") {
+                processedProducts.sort((a, b) => (a.weight || 0) - (b.weight || 0));
             } else if (sortBy === "category") {
                 processedProducts.sort((a, b) => {
                     const categoryA = (a.category || "").toLowerCase();
@@ -168,6 +172,12 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
                                 <span className="product-detail-label">Quantity</span>
                                 <span className="product-detail-value">{product.quantity}</span>
                             </div>
+                            {product.weight && (
+                                <div className="product-detail-item">
+                                    <span className="product-detail-label">Weight</span>
+                                    <span className="product-detail-value">{product.weight}g</span>
+                                </div>
+                            )}
                             <div className="product-detail-item">
                                 <span className="product-detail-label">Price</span>
                                 <span className="product-detail-value">₹{product.price}</span>
@@ -220,6 +230,7 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
                         <th>Name</th>
                         <th>Category</th>
                         <th>Quantity</th>
+                        <th>Weight</th>
                         <th>Price</th>
                         <th>Status</th>
                         {!readOnly && <th>Actions</th>}
@@ -253,6 +264,7 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
                                     )}
                                 </td>
                                 <td>{product.quantity}</td>
+                                <td>{product.weight ? `${product.weight}g` : '-'}</td>
                                 <td>₹{product.price}</td>
                                 <td>
                                     <span className={`status-badge ${badgeClass}`}>
@@ -309,6 +321,8 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
                         <option value="expiryDate">Expiry Date</option>
                         <option value="category">Category</option>
                         <option value="subcategory">Subcategory</option>
+                        <option value="weightHighToLow">Weight: High to Low</option>
+                        <option value="weightLowToHigh">Weight: Low to High</option>
                         <option value="priceHighToLow">Price: High to Low</option>
                         <option value="priceLowToHigh">Price: Low to High</option>
                     </select>
