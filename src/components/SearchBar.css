@@ -86,6 +86,12 @@
     }
 }
 
+@media (min-width: 769px) {
+    .search-box {
+        max-width: 800px;
+    }
+}
+
 @media (max-width: 768px) {
     .search-box {
         max-width: 100%;

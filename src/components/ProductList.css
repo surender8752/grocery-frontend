@@ -335,6 +335,19 @@ tr:hover {
     }
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
+
+    th,
+    td {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .status-badge {
+        padding: 0.35rem 0.8rem;
+    }
+}
+
 @media (max-width: 968px) {
     .list-header {
         flex-direction: column;
