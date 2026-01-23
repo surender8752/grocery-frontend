@@ -8,6 +8,7 @@ import SearchBar from "../components/SearchBar";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CSVUpload from "../components/CSVUpload";
+import "./AdminPanel.css";
 
 export default function AdminPanel() {
     const { logout } = useAuth();
@@ -33,15 +34,14 @@ export default function AdminPanel() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50">
+        <div className="admin-page">
             <Navbar />
 
-            <div className="max-w-7xl mx-auto px-6 py-8">
+            <div className="container">
                 <Dashboard onFilter={setFilterStatus} refresh={refreshKey} />
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
-                    {/* Form Column */}
-                    <div className="lg:col-span-1 space-y-6">
+                <div className="admin-main-layout">
+                    <div className="form-column">
                         <CSVUpload onUploadSuccess={handleProductSuccess} />
                         <ProductForm
                             editProduct={editProduct}
@@ -49,8 +49,7 @@ export default function AdminPanel() {
                         />
                     </div>
 
-                    {/* List Column */}
-                    <div className="lg:col-span-2">
+                    <div className="list-column">
                         <SearchBar onSearch={setSearchQuery} />
                         <ProductList
                             refresh={refreshKey}
@@ -62,12 +61,8 @@ export default function AdminPanel() {
                     </div>
                 </div>
 
-                {/* Logout Button */}
-                <div className="flex justify-center mt-16 mb-8">
-                    <button
-                        onClick={handleLogout}
-                        className="bg-gradient-to-r from-red-500 to-red-600 text-white font-bold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
-                    >
+                <div style={{ textAlign: 'center', marginTop: '4rem', padding: '2rem' }}>
+                    <button onClick={handleLogout} className="btn-secondary">
                         🚪 Logout from Session
                     </button>
                 </div>
