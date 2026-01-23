@@ -8,7 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import AdminPanel from "./pages/AdminPanel";
 import Home from "./pages/Home";
-import "./App.css";
+
 
 function App() {
   const [notificationEnabled, setNotificationEnabled] = useState(false);
