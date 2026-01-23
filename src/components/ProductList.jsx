@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import "./ProductList.css";
 
 export default function ProductList({ refresh, onEdit, readOnly = false, filterStatus = "all", onClearFilter, searchQuery = "" }) {
     const [products, setProducts] = useState([]);
