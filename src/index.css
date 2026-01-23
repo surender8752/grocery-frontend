@@ -1,52 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  body {
-    @apply bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen font-sans text-gray-800;
-  }
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@layer components {
-
-  /* Glass Card */
-  .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-glass;
-  }
-
-  /* Premium Button */
-  .btn-premium {
-    @apply bg-gradient-to-r from-secondary-500 to-secondary-600 text-white font-bold py-3 px-6 rounded-xl shadow-colored-secondary hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 active:translate-y-0;
-  }
-
-  /* Input Field */
-  .input-field {
-    @apply w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-secondary-500 focus:ring-4 focus:ring-secondary-500/20 focus:bg-white transition-all duration-300 outline-none;
-  }
-
-  /* Stat Card */
-  .stat-card {
-    @apply bg-white p-6 rounded-2xl border-2 border-transparent hover:border-secondary-500/30 hover:shadow-xl transition-all duration-300 hover:-translate-y-2;
-  }
-}
-
-@layer utilities {
-  .text-gradient {
-    @apply bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent;
-  }
-
-  .animate-glow {
-    animation: glow 2s ease-in-out infinite alternate;
-  }
-}
-
-@keyframes glow {
-  from {
-    box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
-  }
-
-  to {
-    box-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
-  }
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
