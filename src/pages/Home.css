@@ -110,9 +110,51 @@
 
     .btn-admin-login {
         width: 100%;
+        min-height: 48px;
     }
 
     .home-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .home-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .admin-cta {
+        padding: 2rem 1.5rem;
+    }
+
+    .admin-cta h3 {
         font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-header {
+        padding: 1rem 1.5rem;
+    }
+
+    .home-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .btn-admin-login,
+    .btn-cta {
+        padding: 0.9rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .admin-cta {
+        padding: 1.75rem 1.25rem;
+    }
+
+    .admin-cta h3 {
+        font-size: 1.3rem;
+    }
+
+    .admin-cta p {
+        font-size: 1rem;
     }
 }

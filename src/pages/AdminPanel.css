@@ -105,10 +105,15 @@
 
     .btn-logout {
         width: 100%;
+        min-height: 48px;
     }
 
     .admin-content {
         grid-template-columns: 1fr;
+    }
+
+    .admin-container {
+        padding: 1.5rem;
     }
 }
 
@@ -118,11 +123,30 @@
     }
 
     .admin-header h1 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
     }
 
     .admin-badge {
         width: 100%;
         justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .admin-header p {
+        font-size: 0.85rem;
+    }
+
+    .admin-container {
+        padding: 1rem;
+    }
+
+    .btn-logout {
+        padding: 0.9rem 1.5rem;
+        font-size: 0.95rem;
     }
 }
