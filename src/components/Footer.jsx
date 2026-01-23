@@ -35,7 +35,7 @@ export default function Footer() {
             </div>
 
             <div className="footer-bottom">
-                <p>© {new Date().getFullYear()} Mahajan Grocery Store. All rights reserved.</p>
+                <p>© 2026 Sk Grocery Store. All rights reserved.</p>
             </div>
         </footer>
     );
