@@ -15,6 +15,8 @@ export default function Home({ notificationEnabled, requestPermission }) {
             <Navbar />
 
             <div className="container">
+                <SearchBar onSearch={setSearchQuery} />
+
                 {!notificationEnabled && (
                     <div className="notification-card">
                         <div className="notification-icon-box">🔔</div>
@@ -31,7 +33,6 @@ export default function Home({ notificationEnabled, requestPermission }) {
                 <Dashboard onFilter={setFilterStatus} />
 
                 <div className="home-content">
-                    <SearchBar onSearch={setSearchQuery} />
                     <ProductList
                         onEdit={() => { }}
                         readOnly={true}

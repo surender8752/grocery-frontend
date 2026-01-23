@@ -38,6 +38,8 @@ export default function AdminPanel() {
             <Navbar />
 
             <div className="container">
+                <SearchBar onSearch={setSearchQuery} />
+
                 <Dashboard onFilter={setFilterStatus} refresh={refreshKey} />
 
                 <div className="admin-main-layout">
@@ -50,7 +52,6 @@ export default function AdminPanel() {
                     </div>
 
                     <div className="list-column">
-                        <SearchBar onSearch={setSearchQuery} />
                         <ProductList
                             refresh={refreshKey}
                             onEdit={handleEdit}
