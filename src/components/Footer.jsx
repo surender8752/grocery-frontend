@@ -33,12 +33,12 @@ export default function Footer() {
 
                 {/* Contact & Support Section */}
                 <div className="footer-section">
-                    <h4 className="footer-heading">Support & Contact</h4>
+                    <h4 className="footer-heading">Developer</h4>
                     <div className="contact-card">
                         <div className="contact-item">
                             <div className="contact-icon">📧</div>
                             <div className="contact-info">
-                                <span className="contact-label">Email Support</span>
+                                <span className="contact-label">Developer Email</span>
                                 <span className="contact-value">surenderthakur40437@gmail.com</span>
                             </div>
                         </div>
@@ -48,14 +48,6 @@ export default function Footer() {
                                 <span className="contact-label">Location</span>
                                 <span className="contact-value">Bilaspur, Himachal Pradesh</span>
                             </div>
-                        </div>
-                    </div>
-
-                    <div className="developer-badge">
-                        <span style={{ fontSize: '1.2rem' }}>👨‍💻</span>
-                        <div className="contact-info">
-                            <span className="contact-label">Developer</span>
-                            <span className="contact-value">Developed with ❤️ by SK</span>
                         </div>
                     </div>
                 </div>
