@@ -326,7 +326,7 @@ tr:hover {
 }
 
 .category-tag {
-  col or: var(--text-muted);
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
