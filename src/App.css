@@ -308,6 +308,13 @@ tr:hover {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
 }
 
+.form-group label {
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
 .form-group input,
 .form-group select {
   background-color: #12141d;
