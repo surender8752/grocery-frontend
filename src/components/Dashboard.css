@@ -103,7 +103,7 @@
     display: block;
     font-size: 2.5rem;
     font-weight: 800;
-    color: #ffffff;
+    color: #ffffff !important;
     line-height: 1;
     margin-bottom: 0.5rem;
 }
@@ -111,9 +111,10 @@
 .stat-label {
     display: block;
     font-size: 0.95rem;
-    color: #a0aec0;
+    color: #ffffff !important;
     font-weight: 600;
     text-transform: capitalize;
+    opacity: 0.9;
 }
 
 /* Animations */
