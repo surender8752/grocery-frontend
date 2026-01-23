@@ -4,38 +4,65 @@ export default function Footer() {
     return (
         <footer className="footer">
             <div className="footer-content">
+                {/* Brand Section */}
                 <div className="footer-section">
-                    <h3 className="footer-brand">SK Grocery App</h3>
+                    <h3 className="footer-brand">
+                        <span style={{ filter: 'drop-shadow(0 0 10px rgba(6, 182, 212, 0.5))' }}>📦</span>
+                        SK Grocery Store
+                    </h3>
                     <p className="footer-description">
-                        Modern inventory management for your grocery store
+                        Revolutionizing inventory management with modern, intuitive, and high-performance solutions for your daily grocery needs.
                     </p>
                 </div>
 
+                {/* Quick Links Section */}
                 <div className="footer-section">
                     <h4 className="footer-heading">Quick Links</h4>
                     <div className="footer-links">
-                        <a href="/" className="footer-link">Dashboard</a>
-                        <a href="/admin" className="footer-link">Products</a>
-                        <a href="/admin" className="footer-link">Reports</a>
+                        <a href="/" className="footer-link">
+                            <span>🏠</span> Dashboard
+                        </a>
+                        <a href="/admin" className="footer-link">
+                            <span>📦</span> Inventory
+                        </a>
+                        <a href="/admin" className="footer-link">
+                            <span>➕</span> Add New Item
+                        </a>
                     </div>
                 </div>
 
+                {/* Contact & Support Section */}
                 <div className="footer-section">
-                    <h4 className="footer-heading">Contact & Developer</h4>
-                    <p className="footer-text">
-                        📧 surenderthakur40437@gmail.com
-                    </p>
-                    <p className="footer-text" style={{ marginTop: '0.5rem' }}>
-                        📍 Bilaspur, Himachal Pradesh
-                    </p>
-                    <p className="footer-text" style={{ marginTop: '1rem' }}>
-                        Made with <span style={{ color: '#f56565', fontSize: '1.2rem' }}>❤️</span> by SK Grocery App
-                    </p>
+                    <h4 className="footer-heading">Support & Contact</h4>
+                    <div className="contact-card">
+                        <div className="contact-item">
+                            <div className="contact-icon">📧</div>
+                            <div className="contact-info">
+                                <span className="contact-label">Email Support</span>
+                                <span className="contact-value">surenderthakur40437@gmail.com</span>
+                            </div>
+                        </div>
+                        <div className="contact-item">
+                            <div className="contact-icon">📍</div>
+                            <div className="contact-info">
+                                <span className="contact-label">Location</span>
+                                <span className="contact-value">Bilaspur, Himachal Pradesh</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="developer-badge">
+                        <span style={{ fontSize: '1.2rem' }}>👨‍💻</span>
+                        <div className="contact-info">
+                            <span className="contact-label">Developer</span>
+                            <span className="contact-value">Developed with ❤️ by SK</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div className="footer-bottom">
-                <p>© 2026 Sk Grocery Store. All rights reserved.</p>
+                <p>© 2026 Sk Grocery Store. All rights reserved. | Built for Excellence</p>
             </div>
         </footer>
     );
