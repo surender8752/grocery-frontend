@@ -55,7 +55,24 @@ export default function ProductForm({ editProduct, onSuccess }) {
 
             if (onSuccess) onSuccess();
         } catch (error) {
-            alert("❌ Error: " + error.message);
+            // Handle duplicate product error (409 Conflict)
+            if (error.response?.status === 409) {
+                const duplicateInfo = error.response.data;
+                const confirmMsg = `⚠️ Duplicate Product!\n\nProduct "${duplicateInfo.existingProduct?.name}" already exists.\nCategory: ${duplicateInfo.existingProduct?.category || 'N/A'}\nQuantity: ${duplicateInfo.existingProduct?.quantity || 'N/A'}\n\nDo you want to edit the existing product instead?`;
+
+                if (window.confirm(confirmMsg)) {
+                    // If user confirms, load the existing product for editing
+                    if (onSuccess) {
+                        // This will trigger a refresh, and they can manually find and edit it
+                        alert("Please find and edit the existing product from the list.");
+                        onSuccess();
+                    }
+                }
+            } else {
+                // Handle other errors
+                const errorMessage = error.response?.data?.message || error.response?.data?.error || error.message;
+                alert("❌ Error: " + errorMessage);
+            }
         }
     };
 
