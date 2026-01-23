@@ -51,7 +51,7 @@ export default function Footer() {
                 </div>
 
                 <div className="footer-bottom">
-                    <p>&copy; {new Date().getFullYear()} Grocery App. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} SK Grocery App <span style={{ color: '#ff4444' }}>❤️</span>. All rights reserved.</p>
                 </div>
             </div>
         </footer>
