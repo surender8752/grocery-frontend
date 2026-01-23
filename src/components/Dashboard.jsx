@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import "./Dashboard.css";
 
 export default function Dashboard({ onFilter, refresh }) {
     const [stats, setStats] = useState({
