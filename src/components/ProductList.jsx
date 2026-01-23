@@ -7,9 +7,10 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
     const [sortBy, setSortBy] = useState("expiryDate");
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [dayFilters, setDayFilters] = useState({
-        days7: false,
-        days15: false,
-        days30: false,
+        days0to7: false,
+        days7to15: false,
+        days15to30: false,
+        days30plus: false,
     });
 
     useEffect(() => {
@@ -46,9 +47,10 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
 
     const clearDayFilters = () => {
         setDayFilters({
-            days7: false,
-            days15: false,
-            days30: false,
+            days0to7: false,
+            days7to15: false,
+            days15to30: false,
+            days30plus: false,
         });
     };
 
@@ -66,13 +68,14 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
             }
 
             // Day filter
-            const anyDayFilterActive = dayFilters.days7 || dayFilters.days15 || dayFilters.days30;
+            const anyDayFilterActive = dayFilters.days0to7 || dayFilters.days7to15 || dayFilters.days15to30 || dayFilters.days30plus;
             if (anyDayFilterActive) {
                 processedProducts = processedProducts.filter(p => {
                     const daysLeft = getDaysLeft(p.expiryDate);
-                    if (dayFilters.days7 && daysLeft >= 0 && daysLeft <= 7) return true;
-                    if (dayFilters.days15 && daysLeft >= 0 && daysLeft <= 15) return true;
-                    if (dayFilters.days30 && daysLeft >= 0 && daysLeft <= 30) return true;
+                    if (dayFilters.days0to7 && daysLeft >= 0 && daysLeft <= 7) return true;
+                    if (dayFilters.days7to15 && daysLeft > 7 && daysLeft <= 15) return true;
+                    if (dayFilters.days15to30 && daysLeft > 15 && daysLeft <= 30) return true;
+                    if (dayFilters.days30plus && daysLeft > 30) return true;
                     return false;
                 });
             }
@@ -302,28 +305,36 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
                     <label className="checkbox-label">
                         <input
                             type="checkbox"
-                            checked={dayFilters.days7}
-                            onChange={() => handleDayFilterChange('days7')}
+                            checked={dayFilters.days0to7}
+                            onChange={() => handleDayFilterChange('days0to7')}
                         />
-                        <span>Within 7 days</span>
+                        <span>0-7 days</span>
                     </label>
                     <label className="checkbox-label">
                         <input
                             type="checkbox"
-                            checked={dayFilters.days15}
-                            onChange={() => handleDayFilterChange('days15')}
+                            checked={dayFilters.days7to15}
+                            onChange={() => handleDayFilterChange('days7to15')}
                         />
-                        <span>Within 15 days</span>
+                        <span>7-15 days</span>
                     </label>
                     <label className="checkbox-label">
                         <input
                             type="checkbox"
-                            checked={dayFilters.days30}
-                            onChange={() => handleDayFilterChange('days30')}
+                            checked={dayFilters.days15to30}
+                            onChange={() => handleDayFilterChange('days15to30')}
                         />
-                        <span>Within 30 days</span>
+                        <span>15-30 days</span>
                     </label>
-                    {(dayFilters.days7 || dayFilters.days15 || dayFilters.days30) && (
+                    <label className="checkbox-label">
+                        <input
+                            type="checkbox"
+                            checked={dayFilters.days30plus}
+                            onChange={() => handleDayFilterChange('days30plus')}
+                        />
+                        <span>30+ days</span>
+                    </label>
+                    {(dayFilters.days0to7 || dayFilters.days7to15 || dayFilters.days15to30 || dayFilters.days30plus) && (
                         <button className="btn-clear-filter" onClick={clearDayFilters} style={{ marginLeft: '1rem' }}>
                             ✕ Clear Day Filter
                         </button>
