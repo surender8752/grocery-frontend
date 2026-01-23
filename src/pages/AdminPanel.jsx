@@ -7,6 +7,7 @@ import ProductList from "../components/ProductList";
 import SearchBar from "../components/SearchBar";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import CSVUpload from "../components/CSVUpload";
 import "./AdminPanel.css";
 
 export default function AdminPanel() {
@@ -41,6 +42,7 @@ export default function AdminPanel() {
 
                 <div className="admin-main-layout">
                     <div className="form-column">
+                        <CSVUpload onUploadSuccess={handleProductSuccess} />
                         <ProductForm
                             editProduct={editProduct}
                             onSuccess={handleProductSuccess}
