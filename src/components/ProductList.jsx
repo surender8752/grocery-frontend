@@ -6,6 +6,11 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState("expiryDate");
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [dayFilters, setDayFilters] = useState({
+        days7: false,
+        days15: false,
+        days30: false,
+    });
 
     useEffect(() => {
         const handleResize = () => {
@@ -32,18 +37,47 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
         return { status: "fresh", color: "#4caf50" };
     }, [getDaysLeft]);
 
+    const handleDayFilterChange = (filter) => {
+        setDayFilters(prev => ({
+            ...prev,
+            [filter]: !prev[filter]
+        }));
+    };
+
+    const clearDayFilters = () => {
+        setDayFilters({
+            days7: false,
+            days15: false,
+            days30: false,
+        });
+    };
+
     const fetchProducts = useCallback(async () => {
         const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:5000").replace(/\/$/, "");
         try {
             const response = await axios.get(`${API_URL}/products`);
             let processedProducts = [...response.data];
 
+            // Status filter
             if (filterStatus !== "all") {
                 processedProducts = processedProducts.filter(p =>
                     getExpiryStatus(p.expiryDate, p.notifyBeforeDays).status === filterStatus
                 );
             }
 
+            // Day filter
+            const anyDayFilterActive = dayFilters.days7 || dayFilters.days15 || dayFilters.days30;
+            if (anyDayFilterActive) {
+                processedProducts = processedProducts.filter(p => {
+                    const daysLeft = getDaysLeft(p.expiryDate);
+                    if (dayFilters.days7 && daysLeft >= 0 && daysLeft <= 7) return true;
+                    if (dayFilters.days15 && daysLeft >= 0 && daysLeft <= 15) return true;
+                    if (dayFilters.days30 && daysLeft >= 0 && daysLeft <= 30) return true;
+                    return false;
+                });
+            }
+
+            // Sorting
             if (sortBy === "priceHighToLow") {
                 processedProducts.sort((a, b) => b.price - a.price);
             } else if (sortBy === "priceLowToHigh") {
@@ -58,7 +92,7 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
             console.error("Error fetching products:", error.response?.data || error.message);
             setLoading(false);
         }
-    }, [sortBy, filterStatus, getExpiryStatus]);
+    }, [sortBy, filterStatus, dayFilters, getExpiryStatus, getDaysLeft]);
 
     useEffect(() => {
         fetchProducts();
@@ -258,6 +292,42 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
                         <option value="priceHighToLow">Price: High to Low</option>
                         <option value="priceLowToHigh">Price: Low to High</option>
                     </select>
+                </div>
+            </div>
+
+            {/* Day Filter Checkboxes */}
+            <div className="day-filter-section">
+                <div className="day-filter-label">📅 Filter by Expiry Days:</div>
+                <div className="day-filter-checkboxes">
+                    <label className="checkbox-label">
+                        <input
+                            type="checkbox"
+                            checked={dayFilters.days7}
+                            onChange={() => handleDayFilterChange('days7')}
+                        />
+                        <span>Within 7 days</span>
+                    </label>
+                    <label className="checkbox-label">
+                        <input
+                            type="checkbox"
+                            checked={dayFilters.days15}
+                            onChange={() => handleDayFilterChange('days15')}
+                        />
+                        <span>Within 15 days</span>
+                    </label>
+                    <label className="checkbox-label">
+                        <input
+                            type="checkbox"
+                            checked={dayFilters.days30}
+                            onChange={() => handleDayFilterChange('days30')}
+                        />
+                        <span>Within 30 days</span>
+                    </label>
+                    {(dayFilters.days7 || dayFilters.days15 || dayFilters.days30) && (
+                        <button className="btn-clear-filter" onClick={clearDayFilters} style={{ marginLeft: '1rem' }}>
+                            ✕ Clear Day Filter
+                        </button>
+                    )}
                 </div>
             </div>
 

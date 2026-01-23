@@ -672,6 +672,61 @@ tr:hover {
   border-color: #5a6578;
 }
 
+/* Day Filter Section */
+.day-filter-section {
+  background-color: var(--bg-card);
+  border: 1px solid #2d3748;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.day-filter-label {
+  color: var(--text-main);
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.day-filter-checkboxes {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  transition: color 0.2s;
+  user-select: none;
+}
+
+.checkbox-label:hover {
+  color: var(--text-main);
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--primary-blue);
+  border-radius: 4px;
+}
+
+.checkbox-label span {
+  font-weight: 500;
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .admin-main-layout {
