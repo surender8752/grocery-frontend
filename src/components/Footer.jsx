@@ -44,7 +44,8 @@ export default function Footer() {
             </div>
 
             <div className="footer-bottom">
-                <p>© 2026. All rights reserved. | Built for Excellence</p>
+                <p>© 2026 SK™. All Rights Reserved.</p>
+                <p style={{ marginTop: '0.5rem', opacity: 0.8 }}>Designed & Developed by SK™ with ❤️</p>
             </div>
         </footer>
     );
