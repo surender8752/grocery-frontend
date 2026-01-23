@@ -4,12 +4,6 @@ export default function Footer() {
     return (
         <footer className="footer">
             <div className="footer-content">
-                {/* Brand Section */}
-                <div className="footer-section">
-                    <p className="footer-description">
-                        Revolutionizing inventory management with modern, intuitive, and high-performance solutions for your daily grocery needs.
-                    </p>
-                </div>
 
                 {/* Quick Links Section */}
                 <div className="footer-section">
