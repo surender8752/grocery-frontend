@@ -1,57 +1,59 @@
-import React from "react";
-import "./Footer.css";
-
 export default function Footer() {
     return (
-        <footer className="footer">
-            <div className="footer-container">
-                <div className="footer-content">
-                    <div className="footer-section">
-                        <h3>Grocery Inventory Manager</h3>
-                        <p>Track your groceries and never miss an expiry date again!</p>
+        <footer className="mt-auto bg-white border-t-2 border-gray-100 shadow-lg">
+            <div className="max-w-7xl mx-auto px-6 py-12">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                    {/* Brand */}
+                    <div>
+                        <h3 className="text-2xl font-black bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-4">
+                            SK Grocery App
+                        </h3>
+                        <p className="text-gray-600 font-medium">
+                            Modern inventory management for your grocery store
+                        </p>
                     </div>
 
-                    <div className="footer-section">
-                        <h4>Developer Info</h4>
-                        <div className="contact-info">
-                            <p>
-                                <span className="icon">📧</span>
-                                <a href="mailto:surenderthakur40437@gmail.com">
-                                    surenderthakur40437@gmail.com
-                                </a>
-                            </p>
-                            <p>
-                                <span className="icon">📍</span>
-                                Bilaspur, Himachal Pradesh
-                            </p>
+                    {/* Quick Links */}
+                    <div>
+                        <h4 className="font-bold text-gray-900 mb-4 uppercase tracking-wide text-sm">
+                            Quick Links
+                        </h4>
+                        <div className="space-y-2">
+                            <a
+                                href="/"
+                                className="block text-gray-600 hover:text-secondary-600 font-medium transition-colors"
+                            >
+                                Dashboard
+                            </a>
+                            <a
+                                href="/admin"
+                                className="block text-gray-600 hover:text-secondary-600 font-medium transition-colors"
+                            >
+                                Products
+                            </a>
+                            <a
+                                href="/admin"
+                                className="block text-gray-600 hover:text-secondary-600 font-medium transition-colors"
+                            >
+                                Reports
+                            </a>
                         </div>
                     </div>
 
-                    <div className="footer-section">
-                        <h4>Connect</h4>
-                        <div className="social-links">
-                            <a
-                                href="https://www.linkedin.com/in/surender-kumar-2399b7275"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="social-link"
-                            >
-                                <span className="icon">💼</span> LinkedIn
-                            </a>
-                            <a
-                                href="https://github.com/surender8752"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="social-link"
-                            >
-                                <span className="icon">💻</span> GitHub
-                            </a>
-                        </div>
+                    {/* Contact */}
+                    <div>
+                        <h4 className="font-bold text-gray-900 mb-4 uppercase tracking-wide text-sm">
+                            Contact
+                        </h4>
+                        <p className="text-gray-600 font-medium">
+                            Made with <span className="text-red-500 text-lg">❤️</span> by SK Grocery App
+                        </p>
                     </div>
                 </div>
 
-                <div className="footer-bottom">
-                    <p>&copy; {new Date().getFullYear()} SK Grocery App <span style={{ color: '#ff4444' }}>❤️</span>. All rights reserved.</p>
+                {/* Copyright */}
+                <div className="pt-8 border-t border-gray-200 text-center text-gray-500 font-medium">
+                    © {new Date().getFullYear()} Mahajan Grocery Store. All rights reserved.
                 </div>
             </div>
         </footer>
