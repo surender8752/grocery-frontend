@@ -101,7 +101,10 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
                         <div className="product-card-header">
                             <div className="product-card-title">
                                 <h3>{product.name}</h3>
-                                <div className="category">{product.category || "General"}</div>
+                                <div className="category">
+                                    {product.category || "General"}
+                                    {product.subcategory && ` • ${product.subcategory}`}
+                                </div>
                             </div>
                             <span className={`status-badge ${badgeClass}`}>
                                 {statusLabel}
@@ -189,7 +192,14 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
                                         Exp: {new Date(product.expiryDate).toLocaleDateString("en-IN")}
                                     </div>
                                 </td>
-                                <td className="category-tag">{product.category || "General"}</td>
+                                <td className="category-tag">
+                                    {product.category || "General"}
+                                    {product.subcategory && (
+                                        <div style={{ fontSize: '0.85rem', color: '#a0aec0', marginTop: '0.15rem' }}>
+                                            {product.subcategory}
+                                        </div>
+                                    )}
+                                </td>
                                 <td>{product.quantity}</td>
                                 <td>₹{product.price}</td>
                                 <td>

@@ -5,6 +5,7 @@ export default function ProductForm({ editProduct, onSuccess }) {
     const [formData, setFormData] = useState({
         name: "",
         category: "",
+        subcategory: "",
         quantity: "",
         price: "",
         expiryDate: "",
@@ -16,6 +17,7 @@ export default function ProductForm({ editProduct, onSuccess }) {
             setFormData({
                 name: editProduct.name,
                 category: editProduct.category || "",
+                subcategory: editProduct.subcategory || "",
                 quantity: editProduct.quantity,
                 price: editProduct.price || "",
                 expiryDate: editProduct.expiryDate?.split("T")[0] || "",
@@ -44,6 +46,7 @@ export default function ProductForm({ editProduct, onSuccess }) {
             setFormData({
                 name: "",
                 category: "",
+                subcategory: "",
                 quantity: "",
                 price: "",
                 expiryDate: "",
@@ -78,6 +81,16 @@ export default function ProductForm({ editProduct, onSuccess }) {
                         placeholder="e.g., Grocery, Dairy, Bakery"
                         value={formData.category}
                         onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Subcategory</label>
+                    <input
+                        type="text"
+                        placeholder="e.g., Organic, Fresh, Frozen"
+                        value={formData.subcategory}
+                        onChange={(e) => setFormData({ ...formData, subcategory: e.target.value })}
                     />
                 </div>
 
