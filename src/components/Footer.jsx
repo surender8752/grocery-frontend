@@ -21,8 +21,14 @@ export default function Footer() {
                 </div>
 
                 <div className="footer-section">
-                    <h4 className="footer-heading">Contact</h4>
+                    <h4 className="footer-heading">Contact & Developer</h4>
                     <p className="footer-text">
+                        📧 surenderthakur40437@gmail.com
+                    </p>
+                    <p className="footer-text" style={{ marginTop: '0.5rem' }}>
+                        📍 Bilaspur, Himachal Pradesh
+                    </p>
+                    <p className="footer-text" style={{ marginTop: '1rem' }}>
                         Made with <span style={{ color: '#f56565', fontSize: '1.2rem' }}>❤️</span> by SK Grocery App
                     </p>
                 </div>
