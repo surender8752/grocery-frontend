@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import Dashboard from "../components/Dashboard";
 import ProductForm from "../components/ProductForm";
 import ProductList from "../components/ProductList";
+import SearchBar from "../components/SearchBar";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import "./AdminPanel.css";
 
 export default function AdminPanel() {
@@ -13,6 +15,7 @@ export default function AdminPanel() {
     const [editProduct, setEditProduct] = useState(null);
     const [refreshKey, setRefreshKey] = useState(0);
     const [filterStatus, setFilterStatus] = useState("all");
+    const [searchQuery, setSearchQuery] = useState("");
 
     const handleProductSuccess = () => {
         setEditProduct(null);
@@ -45,11 +48,13 @@ export default function AdminPanel() {
                     </div>
 
                     <div className="list-column">
+                        <SearchBar onSearch={setSearchQuery} />
                         <ProductList
                             refresh={refreshKey}
                             onEdit={handleEdit}
                             filterStatus={filterStatus}
                             onClearFilter={() => setFilterStatus("all")}
+                            searchQuery={searchQuery}
                         />
                     </div>
                 </div>
@@ -60,6 +65,8 @@ export default function AdminPanel() {
                     </button>
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 }

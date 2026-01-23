@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
-export default function ProductList({ refresh, onEdit, readOnly = false, filterStatus = "all", onClearFilter }) {
+export default function ProductList({ refresh, onEdit, readOnly = false, filterStatus = "all", onClearFilter, searchQuery = "" }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState("expiryDate");
@@ -83,6 +83,19 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
                 });
             }
 
+            // Search filter
+            if (searchQuery && searchQuery.trim() !== "") {
+                const searchLower = searchQuery.toLowerCase().trim();
+                processedProducts = processedProducts.filter(p => {
+                    const name = (p.name || "").toLowerCase();
+                    const category = (p.category || "").toLowerCase();
+                    const subcategory = (p.subcategory || "").toLowerCase();
+                    return name.includes(searchLower) ||
+                        category.includes(searchLower) ||
+                        subcategory.includes(searchLower);
+                });
+            }
+
             // Sorting
             if (sortBy === "priceHighToLow") {
                 processedProducts.sort((a, b) => b.price - a.price);
@@ -114,7 +127,7 @@ export default function ProductList({ refresh, onEdit, readOnly = false, filterS
             console.error("Error fetching products:", error.response?.data || error.message);
             setLoading(false);
         }
-    }, [sortBy, filterStatus, dayFilters, getExpiryStatus, getDaysLeft]);
+    }, [sortBy, filterStatus, dayFilters, searchQuery, getExpiryStatus, getDaysLeft]);
 
     useEffect(() => {
         fetchProducts();

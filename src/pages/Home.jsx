@@ -1,12 +1,15 @@
 import { useState } from "react";
 import Dashboard from "../components/Dashboard";
 import ProductList from "../components/ProductList";
+import SearchBar from "../components/SearchBar";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import "./Home.css";
 
 
 export default function Home({ notificationEnabled, requestPermission }) {
     const [filterStatus, setFilterStatus] = useState("all");
+    const [searchQuery, setSearchQuery] = useState("");
 
     return (
         <div className="home-page">
@@ -29,14 +32,18 @@ export default function Home({ notificationEnabled, requestPermission }) {
                 <Dashboard onFilter={setFilterStatus} />
 
                 <div className="home-content">
+                    <SearchBar onSearch={setSearchQuery} />
                     <ProductList
                         onEdit={() => { }}
                         readOnly={true}
                         filterStatus={filterStatus}
                         onClearFilter={() => setFilterStatus("all")}
+                        searchQuery={searchQuery}
                     />
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 }
