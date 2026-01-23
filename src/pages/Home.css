@@ -1,160 +1,121 @@
 .home-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
-.home-header {
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem 2rem;
-}
-
-.header-content {
-    max-width: 1400px;
-    margin: 0 auto;
+.notification-card {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.12), rgba(66, 153, 225, 0.12));
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(102, 126, 234, 0.25);
+    border-radius: 18px;
+    padding: 2rem;
+    margin: 2rem 0;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 1.75rem;
+    animation: slideDown 0.6s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-.home-header h1 {
-    color: #333;
+.notification-icon-box {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 2rem;
-    margin-bottom: 0.25rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.home-header p {
-    color: #666;
-    font-size: 0.95rem;
+.notification-body {
+    flex-grow: 1;
 }
 
-.btn-admin-login {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+.notification-body h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #2c3e50;
+    font-weight: 800;
+}
+
+.notification-body p {
+    margin: 0.4rem 0 0;
+    font-size: 1rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.btn-notification {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 1rem 2.25rem;
+    border-radius: 12px;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
     font-size: 1rem;
 }
 
-.btn-admin-login:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+.btn-notification:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 
-.home-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem;
+.btn-notification:active {
+    transform: translateY(-1px);
 }
 
 .home-content {
     margin-top: 2rem;
 }
 
-.admin-cta {
-    background: white;
-    padding: 3rem;
-    border-radius: 12px;
-    text-align: center;
-    margin-top: 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
 
-.admin-cta h3 {
-    color: #333;
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-}
-
-.admin-cta p {
-    color: #666;
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-}
-
-.btn-cta {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    border: none;
-    padding: 1rem 2.5rem;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-}
-
-.home-footer {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 1.5rem;
-    text-align: center;
-    color: #666;
-    margin-top: 2rem;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 768px) {
-    .header-content {
+    .notification-card {
         flex-direction: column;
-        gap: 1rem;
         text-align: center;
+        padding: 1.75rem 1.5rem;
+        gap: 1.5rem;
     }
 
-    .btn-admin-login {
+    .btn-notification {
         width: 100%;
-        min-height: 48px;
     }
 
-    .home-header h1 {
-        font-size: 1.6rem;
+    .notification-body h4 {
+        font-size: 1.1rem;
     }
 
-    .home-container {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-
-    .admin-cta {
-        padding: 2rem 1.5rem;
-    }
-
-    .admin-cta h3 {
-        font-size: 1.5rem;
+    .notification-body p {
+        font-size: 0.95rem;
     }
 }
 
 @media (max-width: 480px) {
-    .home-header {
-        padding: 1rem 1.5rem;
+    .notification-card {
+        padding: 1.5rem 1.25rem;
     }
 
-    .home-header h1 {
-        font-size: 1.4rem;
-    }
-
-    .btn-admin-login,
-    .btn-cta {
-        padding: 0.9rem 1.5rem;
-        font-size: 1rem;
-    }
-
-    .admin-cta {
-        padding: 1.75rem 1.25rem;
-    }
-
-    .admin-cta h3 {
-        font-size: 1.3rem;
-    }
-
-    .admin-cta p {
-        font-size: 1rem;
+    .notification-icon-box {
+        width: 50px;
+        height: 50px;
+        font-size: 1.75rem;
     }
 }
