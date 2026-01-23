@@ -6,10 +6,6 @@ export default function Footer() {
             <div className="footer-content">
                 {/* Brand Section */}
                 <div className="footer-section">
-                    <h3 className="footer-brand">
-                        <span style={{ filter: 'drop-shadow(0 0 10px rgba(6, 182, 212, 0.5))' }}>📦</span>
-                        SK Grocery Store
-                    </h3>
                     <p className="footer-description">
                         Revolutionizing inventory management with modern, intuitive, and high-performance solutions for your daily grocery needs.
                     </p>
@@ -54,7 +50,7 @@ export default function Footer() {
             </div>
 
             <div className="footer-bottom">
-                <p>© 2026 Sk Grocery Store. All rights reserved. | Built for Excellence</p>
+                <p>© 2026. All rights reserved. | Built for Excellence</p>
             </div>
         </footer>
     );
